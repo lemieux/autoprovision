@@ -32,20 +32,22 @@
 						</tr>
 					</thead>
 					<tbody>
-						%for i,entry in enumerate(new_phones):
+						%i = 0
+						%for mac,ip in new_phones.items():
 							<tr>
 								<td>
-									{{entry[0]}}
-									<input type="hidden" value="{{entry[0]}}" id="createIp{{i}}">
+									{{ip}}
+									<input type="hidden" value="{{ip}}" id="createIp{{i}}">
 								</td>
 								<td>
-									{{entry[1]}}
-									<input type="hidden" value="{{entry[1]}}" id="createMac{{i}}">
+									{{mac}}
+									<input type="hidden" value="{{mac}}" id="createMac{{i}}">
 								</td>
 								<td><input type="text" value="" class="span1" id="createExtension{{i}}"></td>
 								<td><button type="button" class="btn createButton" id="create{{i}}">Ajouter</button></td>
 							</tr> 
-						%end
+							%i = i +1
+							%end
 					</tbody>
 				</table>
 				<h1>Appareils configurés</h1>
@@ -59,19 +61,21 @@
 						</tr>
 					</thead>
 					<tbody>
-						%for i,entry in enumerate(configured_phones):
+						%i = 0
+						%for mac, ip in configured_phones.items():
 							<tr>
 								<td>
-									{{entry[0]}}
-									<input type="hidden" value="{{entry[0]}}" id="modifyIp{{i}}">
+									{{ip}}
+									<input type="hidden" value="{{ip}}" id="modifyIp{{i}}">
 								</td>
 								<td>
-									{{entry[1]}}
-									<input type="hidden" value="{{entry[1]}}" id="modifyMac{{i}}">
+									{{mac}}
+									<input type="hidden" value="{{mac}}" id="modifyMac{{i}}">
 								</td>
 								<td><input type="text" value="" class="span1" id="modifyExtension{{i}}"></td>
 								<td><button type="button" class="btn modifyButton" id="modify{{i}}">Modifier</button></td>
 							</tr> 
+						%i = i+1
 						%end
 					</tbody>
 				</table>

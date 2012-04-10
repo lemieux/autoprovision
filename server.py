@@ -26,14 +26,14 @@ def server_static(filepath):
 def index():
 	session = request.environ.get('beaker.session')
 	configured_phones = detectExistingDevices()
-	new_phones = session.get('new') or ()
+	new_phones = session.get('new') or {}
 	configured_phones = detectExistingDevices()
 	session['new'] = new_phones
-	def get_new_phones():
-		for element in new_phones:
-			if element not in configured_phones:
-				yield element
-	return dict(new_phones=get_new_phones(), configured_phones=configured_phones  )
+	phone_dict = {}
+	for k,v in new_phones.items():
+		if k not in configured_phones:
+			phone_dict[k] = v
+	return dict(new_phones=phone_dict, configured_phones=configured_phones  )
 
 @bottle_app.route('/refresh')
 @view('index')
@@ -42,11 +42,12 @@ def refresh():
 	new_phones = pingDevices()
 	configured_phones = detectExistingDevices()
 	session['new'] = new_phones
-	def get_new_phones():
-		for element in new_phones:
-			if element not in configured_phones:
-				yield element
-	return dict(new_phones=get_new_phones(), configured_phones=configured_phones  )
+	phone_dict = {}
+	for k,v in new_phones.items():
+		if k not in configured_phones:
+			phone_dict[k] = v
+
+	return dict(new_phones=phone_dict, configured_phones=configured_phones  )
 
 @bottle_app.route('/create', method='POST')
 def create():
