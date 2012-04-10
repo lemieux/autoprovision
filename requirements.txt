@@ -1,0 +1,4 @@
+Beaker==1.6.3
+bottle==0.10.9
+gunicorn==0.14.2
+wsgiref==0.1.2
